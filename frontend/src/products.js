@@ -1,7 +1,8 @@
 const products = [
   {
-    id: "1",
+    _id: "1",
     name: "Blue Bird",
+    image: "/images/blue-bird.jpg",
     size: "11x14",
     description: "Momma blue bird sitting on her nest in a tree",
     category: "Birds",
@@ -12,8 +13,9 @@ const products = [
   },
 
   {
-    id: "2",
+    _id: "2",
     name: "Young Giraffe",
+    image: "/images/giraffe.jpg",
     size: "11x14",
     description: "Young giraffe frolicking in their habitat",
     category: "Animals",
@@ -24,8 +26,9 @@ const products = [
   },
 
   {
-    id: "3",
+    _id: "3",
     name: "Vintage Camera Version One",
+    image: "/images/hiding-camera.jpg",
     size: "8x10",
     description: "Vintage camera with vintage surroundings",
     category: "Product",
@@ -36,8 +39,9 @@ const products = [
   },
 
   {
-    id: "4",
+    _id: "4",
     name: "Palm Tree View of a Sunset",
+    image: "/images/palm-tree-sunset.jpg",
     size: "8x10",
     description:
       "A palm tree has the the best views of the sunset and ocean every evening",
@@ -49,9 +53,10 @@ const products = [
   },
 
   {
-    id: "5",
+    _id: "5",
     name: "The Pink Flamingos",
     size: "11x14",
+    image: "/images/pink-flamingo.jpg",
     description:
       "A couple of flamingos enjoying eachother on the banks of a pond",
     category: "Animals",
@@ -62,9 +67,10 @@ const products = [
   },
 
   {
-    id: "6",
+    _id: "6",
     name: "Pretty Bird",
     size: "11x14",
+    image: "/images/pretty-bird.jpg",
     description: "Beautiful Bird showing off their color and saying hi",
     category: "Birds",
     price: "79.99",
@@ -74,9 +80,10 @@ const products = [
   },
 
   {
-    id: "7",
+    _id: "7",
     name: "Vintage Camera Version Two",
     size: "8x10",
+    image: "/images/vintage-camera.jpg",
     description: "A vintage camera from the 1970s product shot",
     category: "Product",
     price: "15.99",
