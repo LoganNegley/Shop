@@ -1,7 +1,11 @@
 // import logo from './logo.svg';
 
-function App() {
-  return <div className="App"></div>;
-}
+const App = () => {
+  return (
+    <div className="App">
+      <h1>Welcome to my shop</h1>
+    </div>
+  );
+};
 
 export default App;
