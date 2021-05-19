@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 import Rating from "../components/Ratings";
-import products from "../products";
 
 const ProductPage = () => {
+  const [selectedProduct, setSelectedProduct] = useState({});
   const { id } = useParams();
-  const selectedProduct = products.find((product) => product._id === id);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/api/product/${id}`)
+      .then((res) => {
+        const { data } = res;
+        setSelectedProduct(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [id]);
 
   return (
     <>
