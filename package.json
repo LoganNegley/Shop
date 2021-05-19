@@ -1,0 +1,21 @@
+{
+  "name": "shop",
+  "version": "1.0.0",
+  "description": "Photo Print Shop",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoganNegley/Shop.git"
+  },
+  "author": "Logan Negley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LoganNegley/Shop/issues"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

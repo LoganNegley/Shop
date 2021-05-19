@@ -74,7 +74,7 @@ const products = [
     description: "Beautiful Bird showing off their color and saying hi",
     category: "Birds",
     price: "79.99",
-    countInStock: 50,
+    countInStock: 0,
     rating: 5,
     numReviews: 35,
   },
