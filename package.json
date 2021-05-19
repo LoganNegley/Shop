@@ -4,8 +4,7 @@
   "description": "Photo Print Shop",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node backend/server.js"
+    "server": "nodemon node backend/server.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +16,7 @@
     "url": "https://github.com/LoganNegley/Shop/issues"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
   }
 }
