@@ -4,7 +4,7 @@ const dotenv = require("dotenv").config();
 const products = require("./data/products");
 const connectDB = require("./config/db");
 
-connectDB(); //Connecting to mongoose from db config
+connectDB(); //Connecting to MongoDb with mongoose from db config
 
 const app = express();
 app.use(cors());
@@ -24,6 +24,7 @@ app.get("/api/product/:id", (req, res) => {
   res.status(200).json(product);
 });
 
+// Server Routes
 // Server Listening
 app.listen(port, () => {
   console.log(`Server listening on ${port} in ${process.env.NODE_ENV} mode`);
