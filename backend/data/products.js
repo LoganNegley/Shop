@@ -1,6 +1,5 @@
 const products = [
   {
-    _id: "1",
     name: "Blue Bird",
     image: "/images/blue-bird.jpg",
     size: "11x14",
@@ -13,7 +12,6 @@ const products = [
   },
 
   {
-    _id: "2",
     name: "Young Giraffe",
     image: "/images/giraffe.jpg",
     size: "11x14",
@@ -26,7 +24,6 @@ const products = [
   },
 
   {
-    _id: "3",
     name: "Vintage Camera Version One",
     image: "/images/hiding-camera.jpg",
     size: "8x10",
@@ -39,7 +36,6 @@ const products = [
   },
 
   {
-    _id: "4",
     name: "Palm Tree View of a Sunset",
     image: "/images/palm-tree-sunset.jpg",
     size: "8x10",
@@ -53,7 +49,6 @@ const products = [
   },
 
   {
-    _id: "5",
     name: "The Pink Flamingos",
     size: "11x14",
     image: "/images/pink-flamingo.jpg",
@@ -67,7 +62,6 @@ const products = [
   },
 
   {
-    _id: "6",
     name: "Pretty Bird",
     size: "11x14",
     image: "/images/pretty-bird.jpg",
@@ -80,7 +74,6 @@ const products = [
   },
 
   {
-    _id: "7",
     name: "Vintage Camera Version Two",
     size: "8x10",
     image: "/images/vintage-camera.jpg",
@@ -93,4 +86,4 @@ const products = [
   },
 ];
 
-export default products;
+module.exports = products;
