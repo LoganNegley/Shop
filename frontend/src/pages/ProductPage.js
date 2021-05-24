@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../axios"; //my axios instance with baseURL in folder
 import { Link, useParams } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 import Rating from "../components/Ratings";
@@ -9,8 +9,7 @@ const ProductPage = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/product/${id}`)
+    axios.get(`/api/products/${id}`)
       .then((res) => {
         const { data } = res;
         setSelectedProduct(data);

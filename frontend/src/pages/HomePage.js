@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../axios";
 import Product from "../components/Product";
 import { Row, Col } from "react-bootstrap";
 
@@ -8,7 +8,7 @@ const HomePage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/products")
+      .get("/api/products")
       .then((res) => {
         const { data } = res;
         setProducts(data);
