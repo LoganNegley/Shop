@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {useDispatch, useSelector} from 'react-redux';
-import {productDetails} from '../actions/productActions';
 import axios from "../axios"; //my axios instance with baseURL in folder
 import { Link, useParams } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 import Rating from "../components/Ratings";
+import {useDispatch, useSelector} from 'react-redux';
+import {productDetails} from '../state/actions/productActions';
 
 const ProductPage = () => {
   const dispatch = useDispatch();
