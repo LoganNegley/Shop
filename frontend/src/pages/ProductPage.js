@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import {productDetails} from '../actions/productActions';
 import axios from "../axios"; //my axios instance with baseURL in folder
 import { Link, useParams } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 import Rating from "../components/Ratings";
 
 const ProductPage = () => {
-  const [selectedProduct, setSelectedProduct] = useState({});
+  const dispatch = useDispatch();
   const { id } = useParams();
+  const selectedProduct = useSelector((store) => store.productDetails);
+  const {loading, error, product} = selectedProduct;
 
   useEffect(() => {
-    axios.get(`/api/products/${id}`)
-      .then((res) => {
-        const { data } = res;
-        setSelectedProduct(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    dispatch(productDetails(id))
   }, [id]);
 
   return (
@@ -26,22 +23,22 @@ const ProductPage = () => {
       </Link>
       <Row>
         <Col md={6}>
-          <Image src={selectedProduct.image} alt={selectedProduct.name} fluid />
+          <Image src={product.image} alt={product.name} fluid />
         </Col>
         <Col md={3}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h3>{selectedProduct.name}</h3>
+              <h3>{product.name}</h3>
             </ListGroup.Item>
             <ListGroup.Item>
               <Rating
-                rating={selectedProduct.rating}
-                numReviews={selectedProduct.numReviews}
+                rating={product.rating}
+                numReviews={product.numReviews}
               />
             </ListGroup.Item>
-            <ListGroup.Item>Price: ${selectedProduct.price}</ListGroup.Item>
+            <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
             <ListGroup.Item>
-              Description: {selectedProduct.description}
+              Description: {product.description}
             </ListGroup.Item>
           </ListGroup>
         </Col>
@@ -52,7 +49,7 @@ const ProductPage = () => {
                 <Row>
                   <Col>Price:</Col>
                   <Col>
-                    <strong>${selectedProduct.price}</strong>
+                    <strong>${product.price}</strong>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -60,7 +57,7 @@ const ProductPage = () => {
                 <Row>
                   <Col>Status:</Col>
                   <Col>
-                    {selectedProduct.countInStock > 0
+                    {product.countInStock > 0
                       ? "In Stock"
                       : "Out of Stock"}
                   </Col>
@@ -70,7 +67,7 @@ const ProductPage = () => {
                 <Button
                   className="btn-block add-cart-btn"
                   type="button"
-                  disabled={selectedProduct.countInStock === 0}
+                  disabled={product.countInStock === 0}
                 >
                   Add To Cart
                 </Button>
