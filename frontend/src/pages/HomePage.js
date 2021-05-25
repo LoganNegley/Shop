@@ -1,22 +1,17 @@
-import React, { useState, useEffect } from "react";
-import axios from "../axios";
+import React, { useEffect } from "react";
 import Product from "../components/Product";
 import { Row, Col } from "react-bootstrap";
+import {useDispatch, useSelector} from 'react-redux';
+import {listProducts} from '../actions/productActions';
 
 const HomePage = () => {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get("/api/products")
-      .then((res) => {
-        const { data } = res;
-        setProducts(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    dispatch(listProducts())
+  }, [dispatch]);
+
+  const products = []
 
   return (
     <>
