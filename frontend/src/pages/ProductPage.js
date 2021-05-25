@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
 import axios from "../axios"; //my axios instance with baseURL in folder
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Card, Button, Form } from "react-bootstrap";
 import Rating from "../components/Ratings";
 import {useDispatch, useSelector} from 'react-redux';
 import {productDetails} from '../state/actions/productActions';
 
 const ProductPage = () => {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   const { id } = useParams();
+  const history = useHistory();
   const selectedProduct = useSelector((store) => store.productDetails);
   const {loading, error, product} = selectedProduct;
 
   useEffect(() => {
     dispatch(productDetails(id))
   }, [id]);
+
+  const addToCartHandler = ()=>{
+    history.push(`/cart/${id}?qty=${quantity}`)
+  }
 
 
   return (
@@ -74,6 +79,7 @@ const ProductPage = () => {
                         as='select' 
                         value={quantity} 
                         onChange={(event) =>{
+                          console.log(event.target.value)
                         setQuantity(event.target.value)}}
                       >
                         {[...Array(product.countInStock).keys()].map(num =>(
@@ -88,6 +94,7 @@ const ProductPage = () => {
               )}
               <ListGroup.Item>
                 <Button
+                  onClick = {addToCartHandler}
                   className="btn-block add-cart-btn"
                   type="button"
                   disabled={product.countInStock === 0}
