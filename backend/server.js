@@ -4,7 +4,7 @@ const dotenv = require("dotenv").config();
 const connectDB = require("./config/db");
 const productRoutes = require("./routes/productRoutes");
 const {routeNotFound, errorHandler} = require('./middleware/errorMiddleware');
-const userRoutes = require('./routes/userRoutes');
+const userProfileRoutes = require('./routes/userProfileRoutes');
 const authRouter = require('./auth/authRoutes');
 
 
@@ -16,7 +16,7 @@ app.use(cors());
 
 app.use('/api/auth/', authRouter)
 app.use("/api/products", productRoutes);
-app.use("/api/users", userRoutes);
+app.use("/api/user", userProfileRoutes);
 
 // Middleware
 app.use(routeNotFound);

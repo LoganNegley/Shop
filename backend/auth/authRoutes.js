@@ -1,6 +1,8 @@
 const express = require('express');
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
+const generateToken = require('../utils/generateToken');
+
 
 const router = express.Router();
 
@@ -17,14 +19,14 @@ router.post('/login', (req,res) =>{
                 name:user.name,
                 email:user.email,
                 isAdmin:user.isAdmin,
-                token: null
+                token: generateToken(user._id)
             })
         }else{
             res.status(401).json({message: 'Invalid username or password'})
         }
     })
     .catch(error =>{
-        res.status(500).json({errorMessage:'Unable to find user'})
+        res.status(500).json({errorMessage:'Unable to login'})
     })
 
 
