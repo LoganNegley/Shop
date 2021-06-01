@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from "react";
-import axios from "../axios";
+import React, { useEffect } from "react";
 import Product from "../components/Product";
 import { Row, Col } from "react-bootstrap";
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+import {useDispatch, useSelector} from 'react-redux';
+import {listProducts} from '../state/actions/productActions';
 
 const HomePage = () => {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const productList = useSelector((store) => store.productList);
+  const {loading, error, products} = productList; 
 
   useEffect(() => {
-    axios
-      .get("/api/products")
-      .then((res) => {
-        const { data } = res;
-        setProducts(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    dispatch(listProducts())
+  }, [dispatch]);
+
 
   return (
     <>
       <h1>Latest Products</h1>
+      {loading ? <Loader/> : error ? <Message variant='danger'>{error}</Message> :
       <Row>
         {products.map((product) => (
           <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
@@ -28,6 +27,7 @@ const HomePage = () => {
           </Col>
         ))}
       </Row>
+      }
     </>
   );
 };

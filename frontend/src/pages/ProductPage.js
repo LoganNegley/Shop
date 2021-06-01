@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "../axios"; //my axios instance with baseURL in folder
-import { Link, useParams } from "react-router-dom";
-import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
+import { Link, useParams, useHistory } from "react-router-dom";
+import { Row, Col, Image, ListGroup, Card, Button, Form } from "react-bootstrap";
 import Rating from "../components/Ratings";
+import {useDispatch, useSelector} from 'react-redux';
+import {productDetails} from '../state/actions/productActions';
 
 const ProductPage = () => {
-  const [selectedProduct, setSelectedProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
   const { id } = useParams();
+  const history = useHistory();
+  const selectedProduct = useSelector((store) => store.productDetails);
+  const {loading, error, product} = selectedProduct;
 
   useEffect(() => {
-    axios.get(`/api/products/${id}`)
-      .then((res) => {
-        const { data } = res;
-        setSelectedProduct(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    dispatch(productDetails(id))
   }, [id]);
+
+  const addToCartHandler = ()=>{
+    history.push(`/cart/${id}?qty=${quantity}`)
+  }
+
 
   return (
     <>
@@ -26,22 +30,22 @@ const ProductPage = () => {
       </Link>
       <Row>
         <Col md={6}>
-          <Image src={selectedProduct.image} alt={selectedProduct.name} fluid />
+          <Image src={product.image} alt={product.name} fluid />
         </Col>
         <Col md={3}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h3>{selectedProduct.name}</h3>
+              <h3>{product.name}</h3>
             </ListGroup.Item>
             <ListGroup.Item>
               <Rating
-                rating={selectedProduct.rating}
-                numReviews={selectedProduct.numReviews}
+                rating={product.rating}
+                numReviews={product.numReviews}
               />
             </ListGroup.Item>
-            <ListGroup.Item>Price: ${selectedProduct.price}</ListGroup.Item>
+            <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
             <ListGroup.Item>
-              Description: {selectedProduct.description}
+              Description: {product.description}
             </ListGroup.Item>
           </ListGroup>
         </Col>
@@ -52,7 +56,7 @@ const ProductPage = () => {
                 <Row>
                   <Col>Price:</Col>
                   <Col>
-                    <strong>${selectedProduct.price}</strong>
+                    <strong>${product.price}</strong>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -60,17 +64,40 @@ const ProductPage = () => {
                 <Row>
                   <Col>Status:</Col>
                   <Col>
-                    {selectedProduct.countInStock > 0
+                    {product.countInStock > 0
                       ? "In Stock"
                       : "Out of Stock"}
                   </Col>
                 </Row>
               </ListGroup.Item>
+              {product.countInStock > 0 && (
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Qty</Col>
+                    <Col>
+                      <Form.Control 
+                        as='select' 
+                        value={quantity} 
+                        onChange={(event) =>{
+                          console.log(event.target.value)
+                        setQuantity(event.target.value)}}
+                      >
+                        {[...Array(product.countInStock).keys()].map(num =>(
+                          <option key={num + 1} value={num + 1}>
+                            {num + 1}
+                            </option>
+                        ))}
+                      </Form.Control>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+              )}
               <ListGroup.Item>
                 <Button
+                  onClick = {addToCartHandler}
                   className="btn-block add-cart-btn"
                   type="button"
-                  disabled={selectedProduct.countInStock === 0}
+                  disabled={product.countInStock === 0}
                 >
                   Add To Cart
                 </Button>
