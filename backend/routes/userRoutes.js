@@ -20,11 +20,10 @@ router.get("/", (req,res) =>{
 // GET request---user by Id
 //----/api/user/:id
 router.get("/:id", (req,res) =>{
-    const {id} = req.param;
+    const {id} = req.params;
 
     User.findById(id)
     .then(user =>{
-        console.log(user)
         res.status(200).json(user)
     })
     .catch(error =>{
