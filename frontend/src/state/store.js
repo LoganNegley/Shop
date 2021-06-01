@@ -16,7 +16,7 @@ const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(loca
 const initialState = {
     cart: {cartItems:cartItemsFromStorage}
 };
-const middleware = [thunk];
+const middleware = [thunk]; //thunk allows us to return a function from an action creator and sending dispatch as a param allowing us to run an async func in action creator
 
 const store = createStore(
     reducer, 
