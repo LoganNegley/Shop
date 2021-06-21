@@ -27,6 +27,7 @@ router.post('/login', (req,res) =>{
     })
     .catch(error =>{
         res.status(500).json({errorMessage:'Unable to login'})
+        console.log(error)
     })
 
 

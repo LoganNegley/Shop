@@ -4,8 +4,9 @@ const User = require('../models/userModel');
 const protected = (req, res, next) =>{
     let token = req.headers.authorization;
 
+
     if(token && token.startsWith('Bearer')){
-        token = token.split(' ')[1]   //toaking the Bearer out of the token
+        token = token.split(' ')[1]   //taking the Bearer out of the token
 
         jwt.verify(token, process.env.JWT_SECRET, (err, decoded)=>{
             if(err){
