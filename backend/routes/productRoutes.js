@@ -1,33 +1,39 @@
 const express = require("express");
-const asyncHandler = require("express-async-handler"); //middleware handling exceptions inside async express routes passing them to your express error handlers
 const Product = require("../models/productModel");
+const protected = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
 
 // Get all products
 // @route--GET /api/products
-router.get("/", asyncHandler(async (req, res) => {
-    const products = await Product.find({});
+router.get("/", (req, res) => {
 
-    res.status(200).json(products);
-  })
+    Product.find({})
+    .then(products =>{
+      res.status(200).json(products);
+    })
+    .catch(error =>{
+      res.status(500).json({errorMessage:'Error getting all products'})
+    })
+
+  }
 );
 
 // Get product by ID
 // @route--GET /api/products/:id
-router.get("/:id", asyncHandler(async (req, res) => {
+
+router.get("/:id", (req, res) => {
     const { id } = req.params;
 
-    const product = await Product.findById(id);
-
-    if (product) {
-      res.status(200).json(product);
-    } else {
+    Product.findById(id)
+    .then(product =>{
+      res.status(200).json(product)
+    })
+    .catch(error =>{
       res.status(404).json({ message: "No product found by that ID" });
-    }
+    })
+  });
 
-  })
-);
 
 module.exports = router;
