@@ -10,17 +10,22 @@ const protected = (req, res, next) =>{
 
         jwt.verify(token, process.env.JWT_SECRET, (err, decoded)=>{
             if(err){
-                console.log(err)
-            }else{
+                res.status(401).json({message:'Not authorized, token failed'})
+            }else{ 
                 // console.log(decoded)
                 User.findById(decoded.id).select('-password') //return user info except password
                 .then(user =>{
-                    console.log(user)
+                    // res.status(200).json(user)
+                    req.user = user;
+                next();
+
                 })
                 .catch(error =>{
-                    res.status(500).json(error)
+                    res.status(401)
+                    console.log(error)
+                    throw new Error('Not authorized, token failed')
                 })
-                next();
+
             }
         })
     }
