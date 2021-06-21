@@ -9,14 +9,19 @@ const router = express.Router();
 //----/api/user/profile
 //---Private route
 router.get("/profile",  protected, (req,res) =>{
-    // User.findById({email:email})
-    // .then(user =>{
-    //     res.status(200).json(user);
-    // })
-    // .catch(error =>{
-    //     res.status(500).json({errorMessage:'Unable to find user'})
-    // })
-    res.send('SUCCESS!!')
+    const currentUser = req.user._id; //get current user from authMiddleware after checking
+    User.findById(currentUser)
+    .then(user =>{
+        res.status(200).json({
+            _id:user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin
+        });
+    })
+    .catch(error =>{
+        res.status(404).json({errorMessage:'Unable to find user'})
+    })
 }
 );
 
